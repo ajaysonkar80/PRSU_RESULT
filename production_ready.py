@@ -33,7 +33,7 @@ def main():
 
     #print(new_text)
     #word_list=text.split()
-    pass_status="SUPPLY,1ST CHANCE"
+    pass_status="Supply"
     percentage=0
     #Searching for name
     start_text_index=text.find('(SHRI/SMT./KU.)')
@@ -43,14 +43,16 @@ def main():
       name='No words found'  # Words not found
     
     name=text[start_text_index+18:end_text_index-3]
-
+    isPass=text.find("PASS")
+    isFail=text.find("FAIL")
+    #isSupply=text.find("SUPPLY 1ST")
+    
     #Pass_Status
-    if text.find("PASS"):
+    if isPass!=-1:
       pass_status="PASS"
-    elif text.find("FAIL"):
+    if isFail!=-1:
       pass_status="FAIL"
-    else:
-      pass_status="SUPPLY"
+    
 
     #NOW SEARCH FOR PERCENTAGE
     percentage=str(percentage_finder(text))+"%"
