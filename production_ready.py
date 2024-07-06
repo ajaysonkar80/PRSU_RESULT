@@ -30,7 +30,7 @@ def main():
       page = requests.get(i_th_url)
       soup = BeautifulSoup(page.content, 'html.parser')
       text=soup.get_text()
-      st.write(text)
+      #st.write(text)
       
       
     #Using only useful information and deleting rest  
