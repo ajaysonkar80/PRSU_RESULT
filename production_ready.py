@@ -7,18 +7,31 @@ from st_btn_select import st_btn_select
 
 
 def main():
-  
+  regular_ended=False
+  student_type='REGULAR'
   for i in range(st.session_state['starting_range'],st.session_state['ending_range']):
     
     i_th_url= url_maker(year_no,student_type, str(int(roll_no) + i), course_name)
     #print(i_th_url)
-
+    
     # Make a request
     page = requests.get(i_th_url)
     soup = BeautifulSoup(page.content, 'html.parser')
 
     # print the result
     text=soup.get_text()
+    #LOGIC FOR PRIVATE STUDENTS.
+    if "Result Not Found" in text:
+      regular_ended = True
+      student_type = 'Non Col'
+      st.write("Now Private students")
+      #i=i-1
+      i_th_url= url_maker(year_no,student_type, str(int(roll_no) + i), course_name)
+      page = requests.get(i_th_url)
+      soup = BeautifulSoup(page.content, 'html.parser')
+      text=soup.get_text()
+      
+      
     #Using only useful information and deleting rest  
     start_text_index=text.find('Roll')
     end_text_index=text.find('Note')
@@ -33,6 +46,9 @@ def main():
 
     #print(new_text)
     #word_list=text.split()
+
+    
+      
     pass_status="Supply"
     percentage=0
     #Searching for name
